@@ -114,31 +114,43 @@ andijan_input_02 %>%
   my_theme_gt() %>% 
   gtsave('mahalliy_organ.png', path = here("results", "tables", "andijan"))
 
-# table 8 hokim yordamchisi
+# table 8 uy isitish manbalari
 
-# andijan_input_02 %>%
-#   tabyl(district, q_8) %>%
-#   adorn_percentages() %>%
-#   select(district, "Танимайман",  
-#          "Ҳеч қандай ёрдам бергани йўқ", 
-#          "Имтиёзли кредит олишда кўмаклашди", 
-#          "Ер ажратишда ёрдам берди",
-#          "Субсидия, грант ва моддий ёрдам тақдим этилди",
-#          "Танийман, лекин ёрдамга зарурият йўқ") %>%
-#   mutate_at(vars(-district), as.double) %>%
-#   #arrange(desc(across(starts_with("Жуда ёмон")))) %>%
-#   gt(rowname_col = "district") %>%
-#   tab_header(title = md("**Ҳоким ёрдамчиси томонидан кўрсатилган ёрдам ҳолати**"),
-#              subtitle = md("(*Респондентларнинг жавоблари)*")) %>%
-#   cols_width(everything() ~ px(120)) %>%
-#   my_theme_gt() %>%
-#   gtsave('hokim_yordamchisi.png', path = here("results", "tables", "andijan"))
+aaa <- andijan_input_02 %>%
+  mutate(q_8 = str_replace_all(q_8, "(электропечка, пушка, кондиционер ва х.к.)", "")) %>% 
+  mutate(q_8 = str_replace_all(q_8, "(тёплый пол, АГВ ёки котёл)", "")) %>% 
+  mutate(q_8 = str_replace_all(q_8, "Апилка билан", "опилка")) %>% 
+  mutate(q_8 = str_replace_all(q_8, "ОПИЛЬКА", "опилка")) %>% 
+  add_count(district) %>% 
+  separate_rows(q_8, sep = ",") %>%
+  mutate(q_8 = str_trim(q_8)) %>% 
+  mutate(q_8 = recode(q_8, 
+                       "Кўмир ва кўмир брикетлари" = "Кўмир ва кўмир брикетлари",
+                       "Тезак" = "Тезак",
+                       "Суюлтирилган газ (баллон)" = "Суюлтирилган газ (баллон)",
+                       "Марказлашган иссиқлик тизими (Центральное отопление)" = "Марказлашган иссиқлик тизими",
+                       "Ўтин" = "Ўтин",
+                       "Электр таъминоти ()" = "Электр таъминоти",
+                       "Табиий газ таъминоти ( )" = "Табиий газ таъминоти",
+                       .default = "Бошқа")) %>% 
+  count(district, n, q_8) %>% 
+  mutate(freq = nn/n) %>% 
+  select(-n, -nn) %>% 
+  pivot_wider(names_from = q_8, values_from = freq) %>% 
+  mutate_at(vars(-district), as.double) %>%
+  #arrange(desc(across(starts_with("Жуда ёмон")))) %>%
+  gt(rowname_col = "district") %>%
+  tab_header(title = md("**Уйингизни иситиш учун асосан қандай манбалардан фойдаланасиз?**"),
+             subtitle = md("(*Респондентларнинг жавоблари)*")) %>%
+  cols_width(everything() ~ px(120)) %>%
+  my_theme_gt() %>%
+  gtsave('иситиш_манбалари.png', path = here("results", "tables", "andijan"))
 
 #table 9 yoshlar yetakchisi faoli
 
 # aa <- andijan_input_02 %>%
 #   filter(q_9 > 0) %>% 
-#   #group_by(district) %>% 
+#   group_by(district) %>% 
 #   tabyl(district, q_9) %>%
 #   adorn_percentages() %>%
 #   select(district, "Танимайман",  
@@ -154,7 +166,7 @@ andijan_input_02 %>%
 #   my_theme_gt() %>%
 #   gtsave('yoshlar_yetakchisi.png', path = here("results", "tables", "andijan"))
 
-#table 10 ayollar faoli
+#table 10 qishga tayyorlik
 
 andijan_input_02 %>%
   tabyl(district, q_10) %>%
@@ -164,13 +176,25 @@ andijan_input_02 %>%
          "Қисман"
          ) %>%
   mutate_at(vars(-district), as.double) %>%
-  #arrange(desc(across(starts_with("Жуда ёмон")))) %>%
+  arrange(desc(across(starts_with("Ҳа, тўлиқ тайёр")))) %>%
   gt(rowname_col = "district") %>%
   tab_header(title = md("**Уй хўжалигингиз куз-қиш мавсумига тайёрми?**"),
              subtitle = md("(*Респондентларнинг жавоблари)*")) %>%
   cols_width(everything() ~ px(120)) %>%
   my_theme_gt() %>%
-  gtsave('ayollar_yetakchisi.png', path = here("results", "tables", "andijan"))
+  gtsave('winter_readiness.png', path = here("results", "tables", "andijan"))
+
+
+andijan_input_02 %>%
+  tabyl(district, q_11) %>%
+  adorn_percentages() %>%
+  mutate_at(vars(-district), as.double) %>%
+  gt(rowname_col = "district") %>%
+  tab_header(title = md("**Куз-қиш мавсумида иситиш билан боғлиқ энг катта муаммо**"),
+             subtitle = md("(*Респондентлар жавоблари)*")) %>%
+  cols_width(everything() ~ px(110)) %>%
+  my_theme_gt() %>%
+  gtsave('winter_readiness_2.png', path = here("results", "tables", "andijan"))
 
 #table ishsizlik
 
