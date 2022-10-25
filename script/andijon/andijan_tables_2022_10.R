@@ -102,7 +102,7 @@ andijan_input_02 %>%
 #table 11 mahalliy organlarni baholash 
 
 andijan_input_02 %>%
-  tabyl(district, q_11) %>%
+  tabyl(district, q_12) %>%
   adorn_percentages() %>% 
   select(district, "Жуда ёмон", "Ёмон", "Ўртача", "Яхши", "Жуда яхши") %>% 
   mutate_at(vars(-district), as.double) %>% 
@@ -116,57 +116,57 @@ andijan_input_02 %>%
 
 # table 8 hokim yordamchisi
 
-andijan_input_02 %>%
-  tabyl(district, q_8) %>%
-  adorn_percentages() %>%
-  select(district, "Танимайман",  
-         "Ҳеч қандай ёрдам бергани йўқ", 
-         "Имтиёзли кредит олишда кўмаклашди", 
-         "Ер ажратишда ёрдам берди",
-         "Субсидия, грант ва моддий ёрдам тақдим этилди",
-         "Танийман, лекин ёрдамга зарурият йўқ") %>%
-  mutate_at(vars(-district), as.double) %>%
-  #arrange(desc(across(starts_with("Жуда ёмон")))) %>%
-  gt(rowname_col = "district") %>%
-  tab_header(title = md("**Ҳоким ёрдамчиси томонидан кўрсатилган ёрдам ҳолати**"),
-             subtitle = md("(*Респондентларнинг жавоблари)*")) %>%
-  cols_width(everything() ~ px(120)) %>%
-  my_theme_gt() %>%
-  gtsave('hokim_yordamchisi.png', path = here("results", "tables", "andijan"))
+# andijan_input_02 %>%
+#   tabyl(district, q_8) %>%
+#   adorn_percentages() %>%
+#   select(district, "Танимайман",  
+#          "Ҳеч қандай ёрдам бергани йўқ", 
+#          "Имтиёзли кредит олишда кўмаклашди", 
+#          "Ер ажратишда ёрдам берди",
+#          "Субсидия, грант ва моддий ёрдам тақдим этилди",
+#          "Танийман, лекин ёрдамга зарурият йўқ") %>%
+#   mutate_at(vars(-district), as.double) %>%
+#   #arrange(desc(across(starts_with("Жуда ёмон")))) %>%
+#   gt(rowname_col = "district") %>%
+#   tab_header(title = md("**Ҳоким ёрдамчиси томонидан кўрсатилган ёрдам ҳолати**"),
+#              subtitle = md("(*Респондентларнинг жавоблари)*")) %>%
+#   cols_width(everything() ~ px(120)) %>%
+#   my_theme_gt() %>%
+#   gtsave('hokim_yordamchisi.png', path = here("results", "tables", "andijan"))
 
 #table 9 yoshlar yetakchisi faoli
 
-andijan_input_02 %>%
-  filter(age <= "30") %>% 
-  tabyl(district, q_9) %>%
-  adorn_percentages() %>%
-  select(district, "Танимайман",  
-         "Ёрдам олганман",
-         "Фаолиятидан хабардорман, лекин ёрдам олмаганман", 
-         "Танийман, лекин ёрдамга зарурият йўқ") %>%
-  mutate_at(vars(-district), as.double) %>%
-  #arrange(desc(across(starts_with("Жуда ёмон")))) %>%
-  gt(rowname_col = "district") %>%
-  tab_header(title = md("**Ёшлар етакчиси фаолияти билан танишмисиз?**"),
-             subtitle = md("(*Респондентларнинг жавоблари)*")) %>%
-  cols_width(everything() ~ px(120)) %>%
-  my_theme_gt() %>%
-  gtsave('yoshlar_yetakchisi.png', path = here("results", "tables", "andijan"))
+# aa <- andijan_input_02 %>%
+#   filter(q_9 > 0) %>% 
+#   #group_by(district) %>% 
+#   tabyl(district, q_9) %>%
+#   adorn_percentages() %>%
+#   select(district, "Танимайман",  
+#          "Ёрдам олганман",
+#          "Фаолиятидан хабардорман, лекин ёрдам олмаганман", 
+#          "Танийман, лекин ёрдамга зарурият йўқ") %>%
+#   mutate_at(vars(-district), as.double) %>%
+#   #arrange(desc(across(starts_with("Жуда ёмон")))) %>%
+#   gt(rowname_col = "district") %>%
+#   tab_header(title = md("**Ёшлар етакчиси фаолияти билан танишмисиз?**"),
+#              subtitle = md("(*Респондентларнинг жавоблари)*")) %>%
+#   cols_width(everything() ~ px(120)) %>%
+#   my_theme_gt() %>%
+#   gtsave('yoshlar_yetakchisi.png', path = here("results", "tables", "andijan"))
 
 #table 10 ayollar faoli
 
 andijan_input_02 %>%
-  filter(gender == "Аёл") %>% 
   tabyl(district, q_10) %>%
   adorn_percentages() %>%
-  select(district, "Танимайман",  
-         "Ёрдам олганман",
-         "Фаолиятидан хабардорман, лекин ёрдам олмаганман", 
-         "Танийман, лекин ёрдамга зарурият йўқ") %>%
+  select(district, "Ҳа, тўлиқ тайёр",  
+         "Тайёр эмас",
+         "Қисман"
+         ) %>%
   mutate_at(vars(-district), as.double) %>%
   #arrange(desc(across(starts_with("Жуда ёмон")))) %>%
   gt(rowname_col = "district") %>%
-  tab_header(title = md("**Хотин-қизлар фаоли билан танишмисиз?**"),
+  tab_header(title = md("**Уй хўжалигингиз куз-қиш мавсумига тайёрми?**"),
              subtitle = md("(*Респондентларнинг жавоблари)*")) %>%
   cols_width(everything() ~ px(120)) %>%
   my_theme_gt() %>%
