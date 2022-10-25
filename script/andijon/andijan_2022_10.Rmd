@@ -21,7 +21,6 @@ andijan_input_01 <- readxl::read_xlsx(here("data", "andijon_2022_10.xlsx"))
 new_names <-   c("phone_number", "gender", "district", "age", 
                  "is_working", "is_official",  "q_1", "q_2", "q_3", "income", 
                  "q_4", "q_5", "q_6", "q_7", "q_8", "q_9", "q_10","q_11","q_12")
-
 ```
 
 ```{r}
@@ -31,7 +30,10 @@ andijan_input_02 <- andijan_input_01 %>%
   relocate(income, .before = q_1) %>% 
   mutate_if(is.character, as_factor) %>% 
   distinct(phone_number, .keep_all = TRUE) %>% 
-  drop_na(district)
+  drop_na(district) %>% 
+  mutate(district = recode(district, "Бўз" = "Бўстон",
+                           "Андижон тумани" = "Андижон т.",
+                           "Избосган" = "Избоскан")) 
 ```
 
 ```{r}
