@@ -116,7 +116,7 @@ andijan_input_02 %>%
 
 # table 8 uy isitish manbalari
 
-aaa <- andijan_input_02 %>%
+andijan_input_02 %>%
   mutate(q_8 = str_replace_all(q_8, "(электропечка, пушка, кондиционер ва х.к.)", "")) %>% 
   mutate(q_8 = str_replace_all(q_8, "(тёплый пол, АГВ ёки котёл)", "")) %>% 
   mutate(q_8 = str_replace_all(q_8, "Апилка билан", "опилка")) %>% 
