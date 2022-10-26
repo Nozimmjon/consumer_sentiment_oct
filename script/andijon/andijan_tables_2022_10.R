@@ -130,7 +130,7 @@ aa <- andijan_input_02 %>%
              subtitle = md("(*Респондентларнинг жавоблари)*")) %>%
   cols_width(everything() ~ px(120)) %>%
   my_theme_gt() %>%
-  gtsave('иситиш_манбалари.png', path = here("results", "tables", "andijan"))
+  gtsave('иситиш_манбалари.png', path = here("results", "tables", "andijan"), vwidth = 1500, vheight = 1000)
 
 #table 10 qishga tayyorlik
 
@@ -159,9 +159,9 @@ andijan_input_02 %>%
   gt(rowname_col = "district") %>%
   tab_header(title = md("**Куз-қиш мавсумида иситиш билан боғлиқ энг катта муаммо**"),
              subtitle = md("(*Респондентлар жавоблари)*")) %>%
-  cols_width(everything() ~ px(110)) %>%
+  cols_width(everything() ~ px(120)) %>%
   my_theme_gt() %>%
-  gtsave('winter_readiness_2.png', path = here("results", "tables", "andijan"))
+  gtsave('winter_readiness_2.png', path = here("results", "tables", "andijan"), vwidth = 1500, vheight = 1000)
 
 #table ishsizlik
 

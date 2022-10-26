@@ -97,7 +97,6 @@ buxoro_input_02 %>%
   mutate(q_8 = str_trim(q_8)) %>% 
   mutate(q_8 = recode(q_8, 
                       "Кўмир ва кўмир брикетлари" = "Кўмир ва кўмир брикетлари",
-                      "Тезак" = "Тезак",
                       "Суюлтирилган газ (баллон)" = "Суюлтирилган газ (баллон)",
                       "Марказлашган иссиқлик тизими (Центральное отопление)" = "Марказлашган иссиқлик тизими",
                       "Ўтин" = "Ўтин",
@@ -107,7 +106,7 @@ buxoro_input_02 %>%
   count(district, n, q_8) %>% 
   mutate(freq = nn/n) %>% 
   select(-n, -nn) %>% 
-  pivot_wider(names_from = q_8, values_from = freq) %>% 
+  pivot_wider(names_from = q_8, values_from = freq, values_fill = 0) %>% 
   mutate_at(vars(-district), as.double) %>%
   #arrange(desc(across(starts_with("Жуда ёмон")))) %>%
   gt(rowname_col = "district") %>%
@@ -115,7 +114,7 @@ buxoro_input_02 %>%
              subtitle = md("(*Респондентларнинг жавоблари)*")) %>%
   cols_width(everything() ~ px(120)) %>%
   my_theme_gt() %>%
-  gtsave('иситиш_манбалари.png', path = here("results", "tables", "buxoro"))
+  gtsave('иситиш_манбалари.png', path = here("results", "tables", "buxoro"), vwidth = 1500, vheight = 1000)
 
 #table 10 qishga tayyorlik
 
@@ -133,7 +132,7 @@ buxoro_input_02 %>%
              subtitle = md("(*Респондентларнинг жавоблари)*")) %>%
   cols_width(everything() ~ px(120)) %>%
   my_theme_gt() %>%
-  gtsave('winter_readiness.png', path = here("results", "tables", "buxoro"))
+  gtsave('winter_readiness.png', path = here("results", "tables", "buxoro"), vwidth = 1500, vheight = 1000)
 
 # isitish bilan bogliq muammolar 
 
@@ -144,9 +143,9 @@ buxoro_input_02 %>%
   gt(rowname_col = "district") %>%
   tab_header(title = md("**Куз-қиш мавсумида иситиш билан боғлиқ энг катта муаммо**"),
              subtitle = md("(*Респондентлар жавоблари)*")) %>%
-  cols_width(everything() ~ px(110)) %>%
+  cols_width(everything() ~ px(125)) %>%
   my_theme_gt() %>%
-  gtsave('winter_readiness_2.png', path = here("results", "tables", "buxoro"))
+  gtsave('winter_readiness_2.png', path = here("results", "tables", "buxoro"), vwidth = 1500, vheight = 1000)
 
 
 #table 7
