@@ -85,21 +85,8 @@ andijan_input_02 %>%
   cols_width(everything() ~ px(180)) %>% 
   gtsave('6_savol.png', path = here("results", "tables", "andijan"))
 
-#table 7
 
-# table_7 <- andijan_input_02 %>% add_count(district) %>% 
-#   separate_rows(q_7, sep = ",") %>%
-#   mutate(q_7 = str_trim(q_7)) %>% 
-#   count(district, n,  q_7) %>% 
-#   mutate(freq = 100*nn/n) %>% 
-#   select(-n, -nn) %>% 
-#   pivot_wider(names_from = q_7, values_from = freq) 
-# 
-# write_xlsx(table_7, "muammolar_andijan.xlsx")
-
-#table 8
-
-#table 11 mahalliy organlarni baholash 
+#table 12 mahalliy organlarni baholash 
 
 andijan_input_02 %>%
   tabyl(district, q_12) %>%
@@ -146,26 +133,6 @@ andijan_input_02 %>%
   my_theme_gt() %>%
   gtsave('иситиш_манбалари.png', path = here("results", "tables", "andijan"))
 
-#table 9 yoshlar yetakchisi faoli
-
-# aa <- andijan_input_02 %>%
-#   filter(q_9 > 0) %>% 
-#   group_by(district) %>% 
-#   tabyl(district, q_9) %>%
-#   adorn_percentages() %>%
-#   select(district, "Танимайман",  
-#          "Ёрдам олганман",
-#          "Фаолиятидан хабардорман, лекин ёрдам олмаганман", 
-#          "Танийман, лекин ёрдамга зарурият йўқ") %>%
-#   mutate_at(vars(-district), as.double) %>%
-#   #arrange(desc(across(starts_with("Жуда ёмон")))) %>%
-#   gt(rowname_col = "district") %>%
-#   tab_header(title = md("**Ёшлар етакчиси фаолияти билан танишмисиз?**"),
-#              subtitle = md("(*Респондентларнинг жавоблари)*")) %>%
-#   cols_width(everything() ~ px(120)) %>%
-#   my_theme_gt() %>%
-#   gtsave('yoshlar_yetakchisi.png', path = here("results", "tables", "andijan"))
-
 #table 10 qishga tayyorlik
 
 andijan_input_02 %>%
@@ -184,6 +151,7 @@ andijan_input_02 %>%
   my_theme_gt() %>%
   gtsave('winter_readiness.png', path = here("results", "tables", "andijan"))
 
+# isitish bilan bogliq muammolar 
 
 andijan_input_02 %>%
   tabyl(district, q_11) %>%

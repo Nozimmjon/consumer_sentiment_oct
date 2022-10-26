@@ -139,12 +139,12 @@ buxoro_input_02 %>%
 #table 9 yoshlar yetakchisi faoli
 
 buxoro_input_02 %>%
-  filter(age <= "30") %>% 
+  filter(age <= "30") %>%
   tabyl(district, q_9) %>%
   adorn_percentages() %>%
-  select(district, "Танимайман",  
+  select(district, "Танимайман",
          "Ёрдам олганман",
-         "Фаолиятидан хабардорман, лекин ёрдам олмаганман", 
+         "Фаолиятидан хабардорман, лекин ёрдам олмаганман",
          "Танийман, лекин ёрдамга зарурият йўқ") %>%
   mutate_at(vars(-district), as.double) %>%
   #arrange(desc(across(starts_with("Жуда ёмон")))) %>%
