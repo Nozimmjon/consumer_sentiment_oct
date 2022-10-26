@@ -34,7 +34,9 @@ samarkand_input_02 <- samarkand_input_01 %>%
   distinct(phone_number, .keep_all = TRUE) %>% 
   drop_na(district) %>% 
   mutate(district = recode(district, "Самарқанд тумани" = "Самарқанд", 
-  "Самарқанд шаҳри" = "Самарқанд ш.",)) %>%
+  "Самарқанд шаҳри" = "Самарқанд ш.",
+  "Патдарғом" = "Пастдарғом",
+  "Тайлоқ" = "Тойлоқ")) %>%
   mutate(q_11 = recode(q_11, 
                        "Муаммо йук" = "Муаммо йўқ",
                        "Кўмирнинг етишмаслиги/қимматлиги;" = "Кўмир етишмаслиги/қимматлиги",
@@ -46,15 +48,6 @@ samarkand_input_02 <- samarkand_input_01 %>%
                        .default = "Бошқа"))
 ```
 
-```{r}
-samarkand_input_02 <- samarkand_input_01 %>% 
-  select(-3) %>% 
-  set_names(new_names) %>% 
-  relocate(income, .before = q_1) %>% 
-  mutate_if(is.character, as_factor) %>% 
-  distinct(phone_number, .keep_all = TRUE) %>% 
-  drop_na(district)
-```
 
 ```{r}
 skim(samarkand_input_02)
