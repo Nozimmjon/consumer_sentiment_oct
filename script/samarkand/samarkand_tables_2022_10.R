@@ -99,7 +99,7 @@ samarkand_input_02 %>%
 
 # table 8 uy isitish manbalari
 
-samarkand_input_02 %>%
+aaa <- samarkand_input_02 %>%
   mutate(q_8 = str_replace_all(q_8, "(электропечка, пушка, кондиционер ва х.к.)", "")) %>% 
   mutate(q_8 = str_replace_all(q_8, "(тёплый пол, АГВ ёки котёл)", "")) %>% 
   mutate(q_8 = str_replace_all(q_8, "Апилка билан", "опилка")) %>% 
@@ -114,6 +114,7 @@ samarkand_input_02 %>%
                       "Ўтин" = "Ўтин",
                       "Электр таъминоти ()" = "Электр таъминоти",
                       "Табиий газ таъминоти ( )" = "Табиий газ таъминоти",
+                      "Тезак" = "Тезак", 
                       .default = "Бошқа")) %>% 
   count(district, n, q_8) %>% 
   mutate(freq = nn/n) %>% 
