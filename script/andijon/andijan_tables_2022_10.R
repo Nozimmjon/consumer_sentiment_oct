@@ -103,7 +103,7 @@ andijan_input_02 %>%
 
 # table 8 uy isitish manbalari
 
-andijan_input_02 %>%
+aa <- andijan_input_02 %>%
   mutate(q_8 = str_replace_all(q_8, "(электропечка, пушка, кондиционер ва х.к.)", "")) %>% 
   mutate(q_8 = str_replace_all(q_8, "(тёплый пол, АГВ ёки котёл)", "")) %>% 
   mutate(q_8 = str_replace_all(q_8, "Апилка билан", "опилка")) %>% 
@@ -113,7 +113,6 @@ andijan_input_02 %>%
   mutate(q_8 = str_trim(q_8)) %>% 
   mutate(q_8 = recode(q_8, 
                        "Кўмир ва кўмир брикетлари" = "Кўмир ва кўмир брикетлари",
-                       "Тезак" = "Тезак",
                        "Суюлтирилган газ (баллон)" = "Суюлтирилган газ (баллон)",
                        "Марказлашган иссиқлик тизими (Центральное отопление)" = "Марказлашган иссиқлик тизими",
                        "Ўтин" = "Ўтин",
@@ -123,7 +122,7 @@ andijan_input_02 %>%
   count(district, n, q_8) %>% 
   mutate(freq = nn/n) %>% 
   select(-n, -nn) %>% 
-  pivot_wider(names_from = q_8, values_from = freq) %>% 
+  pivot_wider(names_from = q_8, values_from = freq, values_fill = 0) %>% 
   mutate_at(vars(-district), as.double) %>%
   #arrange(desc(across(starts_with("Жуда ёмон")))) %>%
   gt(rowname_col = "district") %>%
