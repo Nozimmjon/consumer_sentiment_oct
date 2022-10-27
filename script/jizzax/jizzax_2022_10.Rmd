@@ -12,7 +12,7 @@ Sys.setlocale("LC_CTYPE", "russian")
 ```
 
 ```{r}
-jizzax_input_01 <- readxl::read_xlsx(here("data", "jizzax_2022_07.xlsx")) 
+jizzax_input_01 <- readxl::read_xlsx(here("data", "jizzax_2022_10.xlsx")) 
 ```
 
 ```{r}
@@ -20,7 +20,7 @@ jizzax_input_01 <- readxl::read_xlsx(here("data", "jizzax_2022_07.xlsx"))
 
 new_names <-   c("phone_number", "gender", "district", "age", 
                  "is_working", "is_official",  "q_1", "q_2", "q_3", "income", 
-                 "q_4", "q_5", "q_6", "q_7", "q_8", "q_9", "q_10","q_11" )
+                 "q_4", "q_5", "q_6", "q_7", "q_8", "q_9", "q_10","q_11", "q_12")
 
 ```
 
@@ -34,6 +34,15 @@ jizzax_input_02 <- jizzax_input_01 %>%
   drop_na(district) %>% 
   mutate(district = recode(district, "Фориж" = "Фориш")) %>% 
   mutate(district = recode(district, "Жиззах тумани" = "Шароф Рашидов")) 
+  mutate(q_11 = recode(q_11, 
+                       "Муаммо йук" = "Муаммо йўқ",
+                       "Кўмирнинг етишмаслиги/қимматлиги;" = "Кўмир етишмаслиги/қимматлиги",
+                       "Суюлтирилган газни етказиб бериш билан боғлиқ муаммо;" = "Суюлтирилган газ етказиб бериш",
+                       "Марказлашган газ тизими мавжуд эмас;" = "Марказлашган газ мавжуд эмас",
+                       "Газ таъминотидаги тез-тез узилишлар ;" = "Газ таъминотида узилиш",
+                       "Электр таъминоти узилиши билан боглик муаммо" = "Электр таъминотида узилиш",
+                       "Ўтин етишмаслиги/қимматлиги" = "Ўтин етишмаслиги",
+                       .default = "Бошқа"))
 ```
 
 ```{r}
@@ -111,5 +120,5 @@ lapply(seq_along(list_of_dataframes), function(i){
   writeData(wb, sheet = i, list_of_dataframes[[i]])
 })
 #Save Workbook
-saveWorkbook(wb, "jizzax_indeks_2022_07.xlsx", overwrite = TRUE) 
+saveWorkbook(wb, "jizzax_indeks_2022_10.xlsx", overwrite = TRUE) 
 ```
