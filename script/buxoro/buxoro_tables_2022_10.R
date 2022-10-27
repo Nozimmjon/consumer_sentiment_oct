@@ -295,4 +295,3 @@ buxoro_input_02 %>% filter(income != "Жавоб беришдан бош тор�
   cols_width(everything() ~ px(150)) %>% 
   my_theme_gt() %>% 
   gtsave('income.png', path = here("results", "tables", "buxoro"))     
-
