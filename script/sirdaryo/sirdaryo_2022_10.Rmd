@@ -31,8 +31,8 @@ sirdaryo_input_02 <- sirdaryo_input_01 %>%
   relocate(income, .before = q_1) %>% 
   mutate_if(is.character, as_factor) %>% 
   distinct(phone_number, .keep_all = TRUE) %>% 
-  drop_na(district)
-mutate(q_11 = recode(q_11, 
+  drop_na(district) %>% 
+  mutate(q_11 = recode(q_11, 
                        "Муаммо йук" = "Муаммо йўқ",
                        "Кўмирнинг етишмаслиги/қимматлиги;" = "Кўмир етишмаслиги/қимматлиги",
                        "Суюлтирилган газни етказиб бериш билан боғлиқ муаммо;" = "Суюлтирилган газ етказиб бериш",
