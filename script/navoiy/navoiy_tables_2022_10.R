@@ -163,7 +163,7 @@ navoiy_input_02 %>%
 #table 11 mahalliy organlarni baholash 
 
 navoiy_input_02 %>%
-  tabyl(district, q_11) %>%
+  tabyl(district, q_12) %>%
   adorn_percentages() %>% 
   select(district, "Жуда ёмон", "Ёмон", "Ўртача", "Яхши", "Жуда яхши") %>% 
   mutate_at(vars(-district), as.double) %>% 
