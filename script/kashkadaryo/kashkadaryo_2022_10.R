@@ -217,5 +217,24 @@ kashkadaryo_input_02 %>%
 
 
 #income groups
+kashkadaryo_input_02 %>% filter(income != "Жавоб беришдан бош тортди") %>% 
+  mutate(income = str_replace_all(income, " ", "")) %>%  
+  mutate(income = as.double(income)) %>% 
+  mutate(income_group = case_when(income == 0 ~ "Даромади мавжуд эмас",
+                                  income >= 0 & income <= 1000000 ~ "1 млн сўмгача",
+                                  income >= 1000001 & income <= 3000000 ~ "1-3 млн",
+                                  income >= 3000001 ~ "3 млн сўмдан баланд")) %>% 
+  select(district, income, income_group) %>% 
+  tabyl(district, income_group) %>%
+  adorn_percentages() %>% 
+  mutate_at(vars(-district), as.double) %>% 
+  select(district, "Даромади мавжуд эмас", "1 млн сўмгача", "1-3 млн", "3 млн сўмдан баланд") %>% 
+  arrange(desc(across(starts_with("Даромади мавжуд эмас")))) %>% 
+  gt(rowname_col = "district") %>% 
+  tab_header(title = md("**Аҳоли ойлик даромадининг тақсимланиши**")) %>% 
+  cols_width(everything() ~ px(150)) %>% 
+  my_theme_gt() %>% 
+  gtsave('income.png', path = here("results", "tables", "kashkadaryo"))     
+
                                                                                                           
 
