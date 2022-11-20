@@ -11,7 +11,7 @@ Sys.setlocale("LC_CTYPE", "russian")
 ```
 
 ```{r}
-namangan_input_01 <- readxl::read_xlsx(here("data", "namangan_2022_10.xlsx")) 
+namangan_input_01 <- readxl::read_xlsx(here("data", "namangan_2022_10.xlsx"))
 ```
 
 ```{r}
@@ -19,8 +19,7 @@ namangan_input_01 <- readxl::read_xlsx(here("data", "namangan_2022_10.xlsx"))
 
 new_names <-   c("phone_number", "gender", "district", "age", 
                  "is_working", "is_official",  "q_1", "q_2", "q_3", "income", 
-                 "q_4", "q_5", "q_6", "q_7", "q_8", "q_9", "q_10","q_11", "q_12")
-
+                 "q_4", "q_5", "q_6", "q_7", "q_8", "q_9", "q_10","q_11", "q_12") 
 ```
 
 ```{r}
